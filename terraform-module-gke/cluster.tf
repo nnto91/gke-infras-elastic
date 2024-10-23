@@ -11,7 +11,7 @@ resource "google_container_cluster" "gke_cluster" {
   networking_mode          = var.networking_mode
   logging_service          = var.logging_service
   min_master_version = var.release_channel == "UNSPECIFIED" ? var.master_version : "latest"
-
+  deletion_protection = false
   dynamic "release_channel" {
     for_each = local.channel
     content {
@@ -30,14 +30,14 @@ resource "google_container_cluster" "gke_cluster" {
   }
   #tags                     = var.tags
   resource_labels           = var.cluster_labels
-  resource_usage_export_config {
-    enable_network_egress_metering = var.enable_network_egress_metering
-    enable_resource_consumption_metering = var.enable_resource_consumption_metering
+  # resource_usage_export_config {
+  #   enable_network_egress_metering = var.enable_network_egress_metering
+  #   enable_resource_consumption_metering = var.enable_resource_consumption_metering
 
-    bigquery_destination {
-      dataset_id = var.cluster_resource_usage
-    }
-  }
+  #   bigquery_destination {
+  #     dataset_id = var.cluster_resource_usage
+  #   }
+  # }
   lifecycle {
     ignore_changes = [
       ip_allocation_policy,
