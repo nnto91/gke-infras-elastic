@@ -29,6 +29,7 @@ Before you begin, ensure you have the following tools installed locally:
 Replace <region> with your desired region (e.g., asia-southeast1), and <your-unique-bucket-name> with a globally unique name for your GCS bucket.
 
 2. **Configure Terraform Variables**
+## Notes: Download the service account with least privileges and store it in the gke-infras-elastic/infras-gke-elastic/environment folder
 
 Edit the locals.tf file or export the necessary environment variables to define your GCP project ID, region, cluster name, and node settings.
 
@@ -70,7 +71,7 @@ The whole set of provisioning a GKE cluster and elasticsearch helm-charts will a
 	openssl x509 -outform der -in elastic-certificate.pem -out elastic-certificate.crt
 	kubectl create secret generic elastic-certificates --from-file=elastic-certificates.p12
   ```
-**Notes: I already generated set of elastic certificates in the manifests folder, we can re-use it or generate a new one**
+## Notes: I already generated set of elastic certificates in the manifests folder, we can re-use it or generate a new one
 
 5. **Test the Elasticsearch Cluster**
 - Get the Elasticsearch service URL using kubectl and Copy the external IP or Cluster IP.
